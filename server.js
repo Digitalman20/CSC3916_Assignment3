@@ -17,7 +17,7 @@ app.use(passport.initialize());
 const router = express.Router();
 
 // Removed getJSONObjectForMovieRequirement as it's not used
-
+app.use(express.json());
 router.post('/signup', async (req, res) => { // Use async/await
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ success: false, msg: 'Please include both username and password to signup.' }); // 400 Bad Request
@@ -118,7 +118,7 @@ router.route('/movies')
     } catch (err) {
 
         res.status(500).json({
-            message: "Error creating movie"
+            message: "Error creating movie" + err.message // Include error message for debugging
         });
 
     }
